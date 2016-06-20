@@ -18,9 +18,8 @@ class ClientFactory {
         override fun intercept(chain: Interceptor.Chain): Response? {
             val r = chain.request()
             val request = r.newBuilder()
-                    .addHeader("Content-Type", "application/json")
-                    .addHeader("X-Parse-Application-Id", "api.id")
-                    .addHeader("X-Parse-Master-Key", "888")
+                    .addHeader("X-Parse-Application-Id", "app.id")
+                    .addHeader("X-Parse-REST-API-Key", "888")
                     .build()
             return chain.proceed(request)
         }

@@ -16,9 +16,9 @@ import rx.schedulers.Schedulers
 
 class MainActivity : AppCompatActivity() {
 
-    open fun activity(): Activity = this
+    fun activity(): Activity = this
 
-    open fun click(view: View) {
+    fun click(view: View) {
         Toast.makeText(activity(), "Amor", Toast.LENGTH_SHORT).show()
     }
 
@@ -27,8 +27,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         init()
-
-
 
     }
 

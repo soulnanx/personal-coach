@@ -29,9 +29,11 @@ class SecondActivity : AppCompatActivity() {
     private fun save() {
         val service = ServiceFactory().service(ClientFactory().create()).create(ParsePersonClient::class.java)
 
-        val person = Person("Rennnan" + Random().nextInt())
+        val person = Person(name = "Rennnan ${Random().nextInt()}" )
 
         service.save(person)
+                .flatMap { person -> service.findById(person.id!!) }
+                .filter { person -> true }
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe (
@@ -39,7 +41,7 @@ class SecondActivity : AppCompatActivity() {
                         (findViewById(R.id.name) as TextView).text = person.name
                     },
                     { error ->
-                        Log.d("subscribe", error.message);
+                        Log.e("subscribe", error.message);
                     }
                 )
 
