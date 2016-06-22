@@ -1,8 +1,11 @@
 package com.hello.kotlin.app.http.client
 
+import com.hello.kotlin.app.PeopleDTO
 import com.hello.kotlin.app.entity.Person
-import org.json.JSONObject
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.Path
 import rx.Observable
 
 /**
@@ -14,4 +17,7 @@ interface ParsePersonClient {
 
     @GET("classes/Person/{id}")
     fun findById(@Path("id") id: String): Observable<Person>
+
+    @GET("classes/Person")
+    fun findAll(): Observable<PeopleDTO>
 }
