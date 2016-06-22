@@ -13,17 +13,16 @@ import com.hello.kotlin.app.entity.Person
  */
 class PersonAdapter() : RecyclerView.Adapter<PersonAdapter.ViewHolder>() {
 
-    constructor(people:MutableList<Person>, onClickItem:View.OnClickListener) : super(){
-
-    }
-
+//    constructor(people:MutableList<Person>, onClickItem:View.OnClickListener) : super(){
+//
+//    }
 
     override fun getItemCount(): Int {
-        return people.size
+        return 1 //people.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = people[position]
+        val item = Person()//people[position]
 
         holder.name.text = item.name
 

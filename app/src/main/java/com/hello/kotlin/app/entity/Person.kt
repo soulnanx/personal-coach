@@ -1,7 +1,12 @@
 package com.hello.kotlin.app.entity
 
+import com.google.gson.annotations.SerializedName
+
 /**
  * Created by renan on 19/06/16.
  */
-class Person (val name:String?){
+class Person (open val name:String? = null){
+
+    @SerializedName("objectId")
+    open val id:String? = null
 }
