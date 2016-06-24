@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.widget.ListView
 import android.widget.TextView
+import android.widget.Toast
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.internal.LinkedTreeMap
@@ -57,4 +58,10 @@ class SecondActivity : AppCompatActivity() {
                 )
 
     }
+}
+
+data class Person2(open var name:String? = null, open var age:Int = 0, open var address:Address? = null){
+}
+
+data class Address(open var title:String? = null){
 }
