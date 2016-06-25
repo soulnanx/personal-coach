@@ -8,7 +8,7 @@ import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
 import com.hello.kotlin.app.R
-import com.hello.kotlin.app.adapter.RepositoryAdapter
+import com.hello.kotlin.app.ui.adapter.RepositoryAdapter
 import com.hello.kotlin.app.http.client.GitHubClient
 import com.hello.kotlin.app.http.factory.ServiceFactory
 import rx.android.schedulers.AndroidSchedulers

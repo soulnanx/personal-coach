@@ -1,4 +1,4 @@
-package com.hello.kotlin.app
+package com.hello.kotlin.app.dto
 
 import com.hello.kotlin.app.entity.Person
 

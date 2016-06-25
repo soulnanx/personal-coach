@@ -10,14 +10,9 @@
     android:orientation="vertical"
     tools:context=".ui.activity.MainActivity">
 
-    <ListView
-        android:id="@+id/list_repositories"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    </ListView>
     <TextView
-        android:id="@+id/user_name_txt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="toast"/>
+        android:text="second"
+        android:textSize="70dp"/>
 </LinearLayout>

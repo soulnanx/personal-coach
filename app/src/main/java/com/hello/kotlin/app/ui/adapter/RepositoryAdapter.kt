@@ -1,4 +1,4 @@
-package com.hello.kotlin.app.adapter
+package com.hello.kotlin.app.ui.adapter
 
 import android.content.Context
 import android.view.LayoutInflater

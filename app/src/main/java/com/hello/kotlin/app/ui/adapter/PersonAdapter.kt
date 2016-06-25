@@ -1,4 +1,4 @@
-package com.hello.kotlin.app.adapter
+package com.hello.kotlin.app.ui.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
