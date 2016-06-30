@@ -31,6 +31,9 @@ android {
             buildConfigField "String", "API_ENDPOINT", "\"http://192.168.0.103:1337/parse/\""
         }
     }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
 }
 
 buildscript {
@@ -60,4 +63,5 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
