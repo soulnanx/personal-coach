@@ -7,7 +7,7 @@ import java.util.*
  * Created by renan on 19/06/16.
  */
 class Day (
-        open val score: Integer? = null,
+        open val score: Int = 0,
         open val createdAt: Date? = null,
         open val message: String = ""){
 

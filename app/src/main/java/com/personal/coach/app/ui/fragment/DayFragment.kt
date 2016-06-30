@@ -17,7 +17,6 @@ import com.personal.coach.app.ui.adapter.DayAdapter
 import com.personal.coach.app.util.LoadingDialog
 import kotlinx.android.synthetic.main.activity_tab.*
 import kotlinx.android.synthetic.main.fragment_day.*
-import kotlinx.android.synthetic.main.fragment_person.*
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 import java.util.*
@@ -57,12 +56,12 @@ class DayFragment() : Fragment() {
     }
 
     private fun setEvents() {
-        btnAddUser.setOnClickListener { view -> onClickAddUser() }
-        swipeRefresh.setOnRefreshListener { onSwipeList() }
+        btnAddDay.setOnClickListener { view -> onClickAddUser() }
+        swipeRefreshDay.setOnRefreshListener { onSwipeList() }
     }
 
     private fun onSwipeList() {
-        swipeRefresh.isRefreshing = true
+        swipeRefreshDay.isRefreshing = true
         serviceFindAll()
     }
 
@@ -74,7 +73,7 @@ class DayFragment() : Fragment() {
         loading!!.show()
 
         val service = ServiceFactory().service(ClientFactory().create()).create(DayClient::class.java)
-        service.save(Day(message = "Oii ${Random().nextFloat()}"))
+        service.save(Day(message = "Oii ${Random().nextFloat()}", score = (Random().nextInt(3) - 1).toInt()))
         .flatMap { day -> service.findById(day.id!!) }
         .subscribeOn(Schedulers.newThread())
         .observeOn(AndroidSchedulers.mainThread())
@@ -82,19 +81,19 @@ class DayFragment() : Fragment() {
     }
 
     private fun showDay(day:Day) {
-        Toast.makeText(activity, day.message, Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity, day.score.toString() + " " + day.message, Toast.LENGTH_SHORT).show()
         serviceFindAll()
     }
 
     private fun serviceFindAll() {
-        swipeRefresh.isRefreshing = false
+        swipeRefreshDay.isRefreshing = false
         loading!!.show()
 
         val service = ServiceFactory().service(ClientFactory().create()).create(DayClient::class.java)
         service.findAll()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ peopleDTO -> setList(peopleDTO.results!!) }, { err -> showError(err.message!!) })
+                .subscribe({ result -> setList(result.results!!) }, { err -> showError(err.message!!) })
     }
 
     private fun showError(err:String = "Desconhecido") {
@@ -112,6 +111,6 @@ class DayFragment() : Fragment() {
     }
 
     private fun setToolbar() {
-        activity.toolbar.title = "frag1"
+        activity.toolbar.title = "dias"
     }
 }

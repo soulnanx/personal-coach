@@ -27,8 +27,8 @@ android {
         debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-//            buildConfigField "String", "API_ENDPOINT", "\"http://entropia-projects.ddns.net:1337/parse/\""
-            buildConfigField "String", "API_ENDPOINT", "\"http://192.168.0.103:1337/parse/\""
+            buildConfigField "String", "API_ENDPOINT", "\"http://entropia-projects.ddns.net:1337/parse/\""
+//            buildConfigField "String", "API_ENDPOINT", "\"http://192.168.0.103:1337/parse/\""
         }
     }
     sourceSets {

@@ -90,10 +90,10 @@ class PersonFragment() : Fragment() {
         loading!!.show()
 
         val service = ServiceFactory().service(ClientFactory().create()).create(PersonClient::class.java)
-        service.findAll()
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ peopleDTO -> setList(peopleDTO.results!!) }, { err -> showError(err.message!!) })
+//        service.findAll()
+//                .subscribeOn(Schedulers.newThread())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe({ peopleDTO -> setList(peopleDTO.results!!) }, { err -> showError(err.message!!) })
     }
 
     private fun showError(err:String = "Desconhecido") {

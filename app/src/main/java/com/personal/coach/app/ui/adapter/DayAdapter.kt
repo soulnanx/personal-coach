@@ -21,16 +21,16 @@ class DayAdapter(open val days:List<Day>) : RecyclerView.Adapter<DayAdapter.View
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item: Day = days[position]
-        holder.name.text = item.message
+        holder.message.text = item.score.toString()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
-        val v:View = LayoutInflater.from(parent!!.context).inflate(R.layout.item_person, parent, false);
+        val v:View = LayoutInflater.from(parent!!.context).inflate(R.layout.item_day, parent, false);
         return ViewHolder(v);
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val name = view.findViewById(R.id.item_message) as TextView
+        val message = view.findViewById(R.id.item_message) as TextView
     }
 
 }

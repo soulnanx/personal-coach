@@ -16,5 +16,5 @@ interface PersonClient {
     fun findById(@Path("id") id: String): Observable<Person>
 
     @GET("classes/Person?order=-createdAt")
-    fun findAll(): Observable<ParseResult<Person>>
+    fun findAll(): Observable<ParseResult>
 }

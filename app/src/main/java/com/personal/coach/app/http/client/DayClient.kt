@@ -15,8 +15,8 @@ interface DayClient {
     @GET("classes/Day/{id}")
     fun findById(@Path("id") id: String): Observable<Day>
 
-    @GET("classes/Day?order=-createdAt")
-    fun findAll(): Observable<ParseResult<Day>>
+    @GET("classes/Day")
+    fun findAll(): Observable<ParseResult>
 }
 
 
