@@ -1,19 +1,12 @@
 package com.personal.coach.app.entity
 
-import com.google.gson.annotations.SerializedName
-import java.net.URL
-
 /**
  * Created by renan on 18/06/16.
  */
-class User{
+class User(
+        open val username:String = "",
+        open val password:String = "",
+           open val nickname:String = "",
+           open val email:String = ""){
 
-    open var login:String? = null
-    open var name:String? = null
-
-    @SerializedName("followers_url")
-    open var followersUrl:URL? = null
-
-    @SerializedName("repos_url")
-    open var reposUrl:URL? = null
 }
