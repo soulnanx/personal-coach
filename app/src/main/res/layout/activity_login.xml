@@ -8,11 +8,24 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context=".ui.activity.MainActivity">
+    tools:context=".ui.activity.LoginActivity">
 
-    <TextView
-        android:id="@+id/user_name_txt"
+    <EditText
+        android:id="@+id/activity_login_edt_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="toast"/>
+        android:text="asd"/>
+
+    <EditText
+        android:id="@+id/activity_login_edt_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:text="1234"/>
+
+    <Button
+        android:id="@+id/activity_login_btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="login"/>
 </LinearLayout>
