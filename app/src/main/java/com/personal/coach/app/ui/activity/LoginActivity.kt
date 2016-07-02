@@ -9,7 +9,9 @@ import com.personal.coach.app.entity.User
 import com.personal.coach.app.http.client.UserClient
 import com.personal.coach.app.http.factory.ClientFactory
 import com.personal.coach.app.http.factory.ServiceFactory
+import com.personal.coach.app.util.NavigateUtils
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_signup.*
 import retrofit2.adapter.rxjava.HttpException
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
@@ -30,6 +32,11 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setValues() {
         activity_login_btn_login.setOnClickListener({view -> onClickLogin()})
+        activity_login_btn_sign_up.setOnClickListener { view -> onClickSignUp() }
+    }
+
+    private fun onClickSignUp() {
+        NavigateUtils().navigateTo(this@LoginActivity, SignUpActivity::class.java, false)
     }
 
     private fun onClickLogin() {
@@ -85,6 +92,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun showUser(user:User) {
-        Toast.makeText(this@LoginActivity, user.nickname, Toast.LENGTH_SHORT).show()
+        NavigateUtils().navigateTo(this@LoginActivity, TabActivity::class.java, true)
     }
 }

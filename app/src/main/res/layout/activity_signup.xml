@@ -11,29 +11,35 @@
     tools:context=".ui.activity.LoginActivity">
 
     <EditText
-        android:id="@+id/activity_login_edt_username"
+        android:id="@+id/activity_sign_up_edt_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="asd"/>
 
     <EditText
-        android:id="@+id/activity_login_edt_password"
+        android:id="@+id/activity_sign_up_edt_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:text="1234"/>
 
-    <Button
-        android:id="@+id/activity_login_btn_login"
+    <EditText
+        android:id="@+id/activity_sign_up_edt_retype_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="login"/>
+        android:inputType="textPassword"
+        android:text="1234"/>
+
+    <EditText
+        android:id="@+id/activity_sign_up_edt_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"/>
 
     <Button
-        android:id="@+id/activity_login_btn_sign_up"
+        android:id="@+id/activity_sign_up_btn_sign_up"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="signup"/>
-
 
 </LinearLayout>

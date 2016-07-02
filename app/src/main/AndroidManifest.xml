@@ -21,6 +21,7 @@
         </activity>
 
         <activity android:name=".ui.activity.TabActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.SignUpActivity" android:screenOrientation="portrait"/>
 
     </application>
 
