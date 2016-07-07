@@ -36,7 +36,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun onClickSignUp() {
-        NavigateUtils().navigateTo(this@LoginActivity, SignUpActivity::class.java, false)
+        NavigateUtils.navigateTo(this@LoginActivity, SignUpActivity::class.java, false)
     }
 
     private fun onClickLogin() {
@@ -62,16 +62,14 @@ class LoginActivity : AppCompatActivity() {
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ user -> showUser(user)}, {err -> showError(err as HttpException)})
-//        service.signUp(user)
-//                .filter { validateUser(user) }
-//                .flatMap { user -> service.findById(user.id!!) }
-//                .subscribeOn(Schedulers.newThread())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe({ user -> showUser(user)}, {err -> showError(err as HttpException)})
     }
 
     private fun loadValues() {
 
+    }
+
+    private fun onError(message: String) {
+        Toast.makeText(this@LoginActivity, message, Toast.LENGTH_SHORT).show()
     }
 
     private fun validateUser(user: User): Boolean {
@@ -92,6 +90,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun showUser(user:User) {
-        NavigateUtils().navigateTo(this@LoginActivity, TabActivity::class.java, true)
+        // TODO save user
+        NavigateUtils.navigateTo(this@LoginActivity, TabActivity::class.java, true)
     }
 }

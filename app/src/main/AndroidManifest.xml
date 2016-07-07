@@ -22,6 +22,8 @@
 
         <activity android:name=".ui.activity.TabActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.activity.SignUpActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.AddGoalActivity" android:screenOrientation="portrait"/>
+
 
     </application>
 

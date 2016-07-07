@@ -101,6 +101,6 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun showUser(user: User) {
-        NavigateUtils().navigateTo(this@SignUpActivity, TabActivity::class.java, true)
+        NavigateUtils.navigateTo(this@SignUpActivity, TabActivity::class.java, true)
     }
 }
