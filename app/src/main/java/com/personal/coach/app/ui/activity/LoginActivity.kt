@@ -11,7 +11,6 @@ import com.personal.coach.app.http.factory.ClientFactory
 import com.personal.coach.app.http.factory.ServiceFactory
 import com.personal.coach.app.util.NavigateUtils
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_signup.*
 import retrofit2.adapter.rxjava.HttpException
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
@@ -58,18 +57,18 @@ class LoginActivity : AppCompatActivity() {
         val service = ServiceFactory().service(ClientFactory().create()).create(UserClient::class.java)
 
         service.login(user.username, user.password)
-                .flatMap { user -> service.findById(user.id!!) }
-                .subscribeOn(Schedulers.newThread())
+                .flatMap { user -> service.findById(user.id) }
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ user -> showUser(user)}, {err -> showError(err as HttpException)})
+                .subscribeOn(Schedulers.newThread())
+                .subscribe({ user -> showUser(user) }, { err -> onError(err) })
     }
 
     private fun loadValues() {
 
     }
 
-    private fun onError(message: String) {
-        Toast.makeText(this@LoginActivity, message, Toast.LENGTH_SHORT).show()
+    private fun onError(message: Throwable) {
+        Toast.makeText(this@LoginActivity, message.message, Toast.LENGTH_SHORT).show()
     }
 
     private fun validateUser(user: User): Boolean {
@@ -83,7 +82,7 @@ class LoginActivity : AppCompatActivity() {
             202 ->  message = "Já existe um usuario com esse nome"
             125 ->  message = "Email invalido"
             203 ->  message = "Esse email já está vinculado a uma conta"
-            else -> message = "Erro desconhecido"
+            else -> message = "Tente novamente"
         }
 
         Toast.makeText(this@LoginActivity, message, Toast.LENGTH_SHORT).show()

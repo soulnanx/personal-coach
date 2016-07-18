@@ -1,6 +1,8 @@
 package com.personal.coach.app.http.factory
 
-import android.util.Log
+import com.personal.coach.app.BuildConfig
+import com.personal.coach.app.constants.ConstantsParse
+import com.personal.coach.app.util.LogHandling
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -11,30 +13,25 @@ import java.util.concurrent.TimeUnit
  */
 class ClientFactory {
 
-    open fun create() : OkHttpClient{
+    fun create() : OkHttpClient{
         return OkHttpClient.Builder()
-                .connectTimeout(20, TimeUnit.SECONDS)
+                .connectTimeout(10, TimeUnit.SECONDS)
                 .addInterceptor(UrlInterceptor()).build()
     }
 
     class UrlInterceptor : Interceptor {
 
         override fun intercept(chain: Interceptor.Chain): Response? {
-            val r = chain.request()
-            val request = r.newBuilder()
-                    .addHeader("X-Parse-Application-Id", "app.id")
-                    .addHeader("X-Parse-REST-API-Key", "888")
+            val request = chain.request().newBuilder()
+                    .addHeader(ConstantsParse.APP_ID, BuildConfig.APPLICATION_ID)
+                    .addHeader(ConstantsParse.REST_API_KEY, BuildConfig.PARSE_API_KEY)
                     .build()
 
-
-            Log.i("RETROFIT2-METHOD", request.method())
-            Log.i("RETROFIT2-URL", request.url().toString())
-            request.headers().toMultimap().map { header ->  Log.i("RETROFIT2-HEADERS", header.key.toString() + " : " + header.value.toString()) }
-
-            if (request.body() != null) Log.i("RETROFIT2-BODY", request.body()?.toString())
-
+            LogHandling.restLog(request)
 
             return chain.proceed(request)
         }
     }
 }
+
+

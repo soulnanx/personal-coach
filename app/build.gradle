@@ -23,13 +23,16 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "String", "API_ENDPOINT", "\"http://entropia-projects.ddns.net:1337/parse/\""
+            buildConfigField "String", "PARSE_API_KEY", "\"888\""
+            buildConfigField "String", "PARSE_APP_ID", "\"app.id\""
         }
 
         debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "String", "API_ENDPOINT", "\"http://entropia-projects.ddns.net:1337/parse/\""
-//            buildConfigField "String", "API_ENDPOINT", "\"http://192.168.0.103:1337/parse/\""
+            buildConfigField "String", "PARSE_API_KEY", "\"888\""
+            buildConfigField "String", "PARSE_APP_ID", "\"app.id\""
         }
     }
     sourceSets {
@@ -55,10 +58,8 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.2.1'
     compile 'com.android.support:design:23.2.1'
 
-    compile "org.jetbrains.kotlin:kotlin-stdlib:1.0.2"
-
-    compile 'io.reactivex:rxandroid:1.1.0'
-    compile 'io.reactivex:rxjava:1.1.0'
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'io.reactivex:rxjava:1.1.6'
     compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
 
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
