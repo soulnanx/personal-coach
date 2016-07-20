@@ -23,7 +23,7 @@ class ClientFactory {
 
         override fun intercept(chain: Interceptor.Chain): Response? {
             val request = chain.request().newBuilder()
-                    .addHeader(ConstantsParse.APP_ID, BuildConfig.APPLICATION_ID)
+                    .addHeader(ConstantsParse.APP_ID, BuildConfig.PARSE_APP_ID)
                     .addHeader(ConstantsParse.REST_API_KEY, BuildConfig.PARSE_API_KEY)
                     .build()
 

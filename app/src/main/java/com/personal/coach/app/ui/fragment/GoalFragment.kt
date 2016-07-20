@@ -10,18 +10,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.personal.coach.app.R
-import com.personal.coach.app.entity.Day
 import com.personal.coach.app.entity.Goal
-import com.personal.coach.app.http.client.DayClient
 import com.personal.coach.app.http.client.GoalClient
 import com.personal.coach.app.http.factory.ClientFactory
 import com.personal.coach.app.http.factory.ServiceFactory
 import com.personal.coach.app.ui.activity.AddGoalActivity
-import com.personal.coach.app.ui.adapter.DayAdapter
+import com.personal.coach.app.ui.adapter.GoalAdapter
 import com.personal.coach.app.util.LoadingDialog
 import com.personal.coach.app.util.NavigateUtils
 import kotlinx.android.synthetic.main.activity_tab.*
-import kotlinx.android.synthetic.main.fragment_day.*
 import kotlinx.android.synthetic.main.fragment_goal.*
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
@@ -58,6 +55,7 @@ class GoalFragment() : Fragment() {
 
     private fun loadValues() {
         loading = LoadingDialog.show(activity)
+        recyclerView.layoutManager = LinearLayoutManager(activity)
         serviceFindAll()
     }
 
@@ -67,7 +65,7 @@ class GoalFragment() : Fragment() {
     }
 
     private fun onSwipeList() {
-        swipeRefreshDay.isRefreshing = true
+        swipe.isRefreshing = true
         serviceFindAll()
     }
 
@@ -80,10 +78,10 @@ class GoalFragment() : Fragment() {
     }
 
     private fun serviceFindAll() {
-        swipeRefreshDay.isRefreshing = false
+        swipe.isRefreshing = false
         loading!!.show()
 
-        val service = ServiceFactory().service(ClientFactory().create()).create(DayClient::class.java)
+        val service = ServiceFactory().service(ClientFactory().create()).create(GoalClient::class.java)
         service.findAll()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -95,10 +93,9 @@ class GoalFragment() : Fragment() {
         loading!!.dismiss()
     }
 
-    private fun setList(people: List<Day> = ArrayList<Day>()) {
-        with(list_day){
-            adapter = DayAdapter(people)
-            layoutManager = LinearLayoutManager(activity)
+    private fun setList(goals: List<Goal> = ArrayList<Goal>()) {
+        with(recyclerView){
+            adapter = GoalAdapter(goals)
             hasFixedSize()
         }
         loading!!.dismiss()

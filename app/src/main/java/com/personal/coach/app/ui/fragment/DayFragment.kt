@@ -52,6 +52,7 @@ class DayFragment() : Fragment() {
 
     private fun loadValues() {
         loading = LoadingDialog.show(activity)
+        recyclerView.layoutManager = LinearLayoutManager(activity)
         serviceFindAll()
     }
 
@@ -102,9 +103,8 @@ class DayFragment() : Fragment() {
     }
 
     private fun setList(people: List<Day> = ArrayList<Day>()) {
-        with(list_day){
+        with(recyclerView){
             adapter = DayAdapter(people)
-            layoutManager = LinearLayoutManager(activity)
             hasFixedSize()
         }
         loading!!.dismiss()
