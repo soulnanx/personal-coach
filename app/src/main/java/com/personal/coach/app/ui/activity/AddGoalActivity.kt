@@ -56,9 +56,7 @@ class AddGoalActivity : AppCompatActivity() {
     private fun buildGoal(): Goal {
         return Goal(title = addGoalTitle.text.toString(),
                 message = addGoalTitle.text.toString(),
-                annoyingMessage = "try",
-                begin = Date(),
-                deadLine = Date())
+                annoyingMessage = "try")
     }
 
     private fun loadValues() {

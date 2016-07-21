@@ -1,10 +1,11 @@
 package com.personal.coach.app.http.client
 
-import com.personal.coach.app.dto.ParseResult
 import com.personal.coach.app.dto.ParseResultGoal
 import com.personal.coach.app.entity.Goal
-import com.personal.coach.app.entity.Person
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.Path
 import rx.Observable
 
 /**
@@ -17,6 +18,6 @@ interface GoalClient {
     @GET("classes/Goal/{id}")
     fun findById(@Path("id") id: String): Observable<Goal>
 
-    @GET("classes/Goal?order=-createdAt")
+    @GET("classes/Goal")
     fun findAll(): Observable<ParseResultGoal>
 }

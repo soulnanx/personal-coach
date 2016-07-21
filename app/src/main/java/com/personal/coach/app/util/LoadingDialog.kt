@@ -10,7 +10,7 @@ import android.content.Context
 class LoadingDialog{
     companion object{
         fun show(ctx:Context, msg:String = "Loading. Please wait..."):ProgressDialog{
-            return ProgressDialog.show(ctx, "", msg, true);
+            return ProgressDialog.show(ctx, "", msg, true)
         }
     }
 }

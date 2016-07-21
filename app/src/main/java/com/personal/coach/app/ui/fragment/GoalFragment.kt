@@ -18,7 +18,6 @@ import com.personal.coach.app.ui.activity.AddGoalActivity
 import com.personal.coach.app.ui.adapter.GoalAdapter
 import com.personal.coach.app.util.LoadingDialog
 import com.personal.coach.app.util.NavigateUtils
-import kotlinx.android.synthetic.main.activity_tab.*
 import kotlinx.android.synthetic.main.fragment_goal.*
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
@@ -30,16 +29,16 @@ import java.util.*
 
 class GoalFragment() : Fragment() {
 
-    private var loading: ProgressDialog? = null
-
     companion object {
         fun newInstance(): GoalFragment {
             return GoalFragment()
         }
+
+        private var loading: ProgressDialog? = null
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return  inflater!!.inflate(R.layout.fragment_goal, container, false)
+        return inflater!!.inflate(R.layout.fragment_goal, container, false)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -48,20 +47,19 @@ class GoalFragment() : Fragment() {
     }
 
     private fun init() {
-        setToolbar()
         setEvents()
         loadValues()
     }
 
     private fun loadValues() {
-        loading = LoadingDialog.show(activity)
-        recyclerView.layoutManager = LinearLayoutManager(activity)
+        showLoading()
+        fragment_goal_recyclerView.layoutManager = LinearLayoutManager(activity)
         serviceFindAll()
     }
 
     private fun setEvents() {
-        recyclerView.setOnClickListener { view -> onClickAddGoal() }
         swipe.setOnRefreshListener { onSwipeList() }
+        fragment_goal_fab.setOnClickListener { navigateToAddGoal() }
     }
 
     private fun onSwipeList() {
@@ -69,17 +67,27 @@ class GoalFragment() : Fragment() {
         serviceFindAll()
     }
 
-    private fun onClickAddGoal() {
-        navigateToAddGoal()
-    }
-
     private fun navigateToAddGoal() {
         NavigateUtils.navigateForResultTo(this@GoalFragment.activity, AddGoalActivity::class.java, AddGoalActivity.REQUEST_ADD_GOAL)
     }
 
+    private fun showLoading() {
+        if (Companion.loading == null) {
+            Companion.loading = LoadingDialog.show(activity)
+        } else {
+            Companion.loading!!.show()
+        }
+    }
+
+    private fun hideLoading() {
+        if (Companion.loading != null && Companion.loading!!.isShowing) {
+            Companion.loading!!.dismiss()
+        }
+    }
+
     private fun serviceFindAll() {
         swipe.isRefreshing = false
-        loading!!.show()
+        showLoading()
 
         val service = ServiceFactory().service(ClientFactory().create()).create(GoalClient::class.java)
         service.findAll()
@@ -88,21 +96,17 @@ class GoalFragment() : Fragment() {
                 .subscribe({ result -> setList(result.results!!) }, { err -> showError(err.message!!) })
     }
 
-    private fun showError(err:String = "Desconhecido") {
+    private fun showError(err: String = "Desconhecido") {
         Toast.makeText(activity, err, Toast.LENGTH_SHORT).show()
-        loading!!.dismiss()
+        hideLoading()
     }
 
     private fun setList(goals: List<Goal> = ArrayList<Goal>()) {
-        with(recyclerView){
+        with(fragment_goal_recyclerView) {
             adapter = GoalAdapter(goals)
             hasFixedSize()
         }
-        loading!!.dismiss()
-    }
-
-    private fun setToolbar() {
-        activity.toolbar.title = "dias"
+        hideLoading()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

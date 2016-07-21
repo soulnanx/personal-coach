@@ -31,7 +31,7 @@ class GoalAdapter(open val goals:List<Goal>) : RecyclerView.Adapter<GoalAdapter.
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val title = view.findViewById(R.id.item_title) as TextView
+        val title = view.findViewById(R.id.item_goal_title) as TextView
     }
 
 }

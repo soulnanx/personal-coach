@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    card_view:cardBackgroundColor="@color/cardview_light_background"
+    card_view:cardCornerRadius="4dp"
+    card_view:cardElevation="4dp"
+    card_view:contentPadding="12dp"
+    card_view:cardUseCompatPadding="true">
+
 
     <TextView
-        android:id="@+id/item_title"
-        android:layout_width="match_parent"
+        android:id="@+id/item_goal_title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="value" />
-</LinearLayout>
+        android:layout_alignParentTop="true"
+        android:textStyle="bold" />
+</android.support.v7.widget.CardView>

@@ -36,7 +36,7 @@ class DayFragment() : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return  inflater!!.inflate(R.layout.fragment_day, container, false)
+        return inflater!!.inflate(R.layout.fragment_day, container, false)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -45,19 +45,18 @@ class DayFragment() : Fragment() {
     }
 
     private fun init() {
-        setToolbar()
         setEvents()
         loadValues()
     }
 
     private fun loadValues() {
-        loading = LoadingDialog.show(activity)
-        recyclerView.layoutManager = LinearLayoutManager(activity)
+        showLoading()
+        fragment_day_recyclerView.layoutManager = LinearLayoutManager(activity)
         serviceFindAll()
     }
 
     private fun setEvents() {
-        btnAddDay.setOnClickListener { view -> onClickAddUser() }
+        fragment_day_fab.setOnClickListener { onClickAddUser() }
         swipeRefreshDay.setOnRefreshListener { onSwipeList() }
     }
 
@@ -66,29 +65,43 @@ class DayFragment() : Fragment() {
         serviceFindAll()
     }
 
+    private fun showLoading() {
+        if (loading == null){
+            loading = LoadingDialog.show(activity)
+        } else {
+            loading!!.show()
+        }
+    }
+
+    private fun hideLoading(){
+        if (loading != null && loading!!.isShowing){
+            loading!!.dismiss()
+        }
+    }
+
     private fun onClickAddUser() {
         serviceAddUser()
     }
 
     private fun serviceAddUser() {
-        loading!!.show()
+        showLoading()
 
         val service = ServiceFactory().service(ClientFactory().create()).create(DayClient::class.java)
         service.save(Day(message = "Oii ${Random().nextFloat()}", score = (Random().nextInt(3) - 1).toInt()))
-        .flatMap { day -> service.findById(day.id!!) }
-        .subscribeOn(Schedulers.newThread())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe({day -> showDay(day)}, {err -> showError(err.message!!)})
+                .flatMap { day -> service.findById(day.id!!) }
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ day -> showDay(day) }, { err -> showError(err.message!!) })
     }
 
-    private fun showDay(day:Day) {
+    private fun showDay(day: Day) {
         Toast.makeText(activity, day.score.toString() + " " + day.message, Toast.LENGTH_SHORT).show()
         serviceFindAll()
     }
 
     private fun serviceFindAll() {
         swipeRefreshDay.isRefreshing = false
-        loading!!.show()
+        showLoading()
 
         val service = ServiceFactory().service(ClientFactory().create()).create(DayClient::class.java)
         service.findAll()
@@ -97,20 +110,16 @@ class DayFragment() : Fragment() {
                 .subscribe({ result -> setList(result.results!!) }, { err -> showError(err.message!!) })
     }
 
-    private fun showError(err:String = "Desconhecido") {
+    private fun showError(err: String = "Desconhecido") {
         Toast.makeText(activity, err, Toast.LENGTH_SHORT).show()
-        loading!!.dismiss()
+        hideLoading()
     }
 
     private fun setList(people: List<Day> = ArrayList<Day>()) {
-        with(recyclerView){
+        with(fragment_day_recyclerView) {
             adapter = DayAdapter(people)
             hasFixedSize()
         }
-        loading!!.dismiss()
-    }
-
-    private fun setToolbar() {
-        activity.toolbar.title = "dias"
+        hideLoading()
     }
 }
