@@ -4,6 +4,7 @@ import android.app.ProgressDialog
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
+import com.dayal.coach.app.ui.fragment.GoalFragment
 import com.personal.coach.app.R
 import com.personal.coach.app.entity.Goal
 import com.personal.coach.app.http.client.GoalClient
@@ -39,7 +40,7 @@ class AddGoalActivity : AppCompatActivity() {
     }
 
     private fun setEvents() {
-        addGoalBtnAddGoal.setOnClickListener { view -> onClickAddGoal() }
+        addGoalBtnAddGoal.setOnClickListener {onClickAddGoal()}
     }
 
     private fun onClickAddGoal() {
@@ -60,11 +61,24 @@ class AddGoalActivity : AppCompatActivity() {
     }
 
     private fun loadValues() {
-        loading = LoadingDialog.show(this@AddGoalActivity)
+    }
+
+    private fun showLoading() {
+        if (loading == null) {
+            loading = LoadingDialog.show(this@AddGoalActivity)
+        } else {
+            loading!!.show()
+        }
+    }
+
+    private fun hideLoading() {
+        if (loading != null && loading!!.isShowing) {
+            loading!!.dismiss()
+        }
     }
 
     private fun serviceAddGoal(goal: Goal) {
-        loading!!.show()
+        showLoading()
 
         val service = ServiceFactory().service(ClientFactory().create()).create(GoalClient::class.java)
         service.save(goal)
@@ -76,10 +90,12 @@ class AddGoalActivity : AppCompatActivity() {
     }
 
     private fun onError(message: String) {
+        hideLoading()
         Toast.makeText(this@AddGoalActivity, message, Toast.LENGTH_SHORT).show()
     }
 
     private fun onSuccess(goal: Goal) {
+        hideLoading()
         setResult(RESULT_ADD_GOAL)
         finish()
     }

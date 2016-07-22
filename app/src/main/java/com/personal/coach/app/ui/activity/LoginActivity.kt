@@ -30,8 +30,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setValues() {
-        activity_login_btn_login.setOnClickListener({view -> onClickLogin()})
-        activity_login_btn_sign_up.setOnClickListener { view -> onClickSignUp() }
+        activity_login_btn_login.setOnClickListener {onClickLogin()}
+        activity_login_btn_sign_up.setOnClickListener {onClickSignUp()}
     }
 
     private fun onClickSignUp() {
