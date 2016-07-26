@@ -24,14 +24,13 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun init() {
-
         setValues()
         loadValues()
     }
 
     private fun setValues() {
-        activity_login_btn_login.setOnClickListener {onClickLogin()}
-        activity_login_btn_sign_up.setOnClickListener {onClickSignUp()}
+        activity_login_btn_login.setOnClickListener { onClickLogin() }
+        activity_login_btn_sign_up.setOnClickListener { onClickSignUp() }
     }
 
     private fun onClickSignUp() {
@@ -39,9 +38,11 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun onClickLogin() {
-        val user = User(username = activity_login_edt_username.text.toString(), password = activity_login_edt_password.text.toString())
+        val user = User(
+                username = activity_login_edt_username.text.toString(),
+                password = activity_login_edt_password.text.toString())
 
-        if (validateUser(user)){
+        if (validateUser(user)) {
             serviceLogin(user)
         } else {
             showValidationError()
@@ -76,20 +77,20 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun showError(err: HttpException) {
-        val error:ParseError = ParseError.Companion.parseError(err)
-        var message:String
-        when(error.code){
-            202 ->  message = "Já existe um usuario com esse nome"
-            125 ->  message = "Email invalido"
-            203 ->  message = "Esse email já está vinculado a uma conta"
+        val error: ParseError = ParseError.Companion.parseError(err)
+        var message: String
+        when (error.code) {
+            202 -> message = "Já existe um usuario com esse nome"
+            125 -> message = "Email invalido"
+            203 -> message = "Esse email já está vinculado a uma conta"
             else -> message = "Tente novamente"
         }
 
         Toast.makeText(this@LoginActivity, message, Toast.LENGTH_SHORT).show()
     }
 
-    private fun showUser(user:User) {
-        // TODO save user
+    private fun showUser(user: User) {
+        user.save(this@LoginActivity)
         NavigateUtils.navigateTo(this@LoginActivity, TabActivity::class.java, true)
     }
 }
